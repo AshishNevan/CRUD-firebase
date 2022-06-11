@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD-firebase</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            text-align: center;
+            background-color: azure;
+        }
+        div{
+            padding: auto;
+            color: black;
+            font-size:200%;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="top">CRUD App</div>
+    <label for="studentName">Name</label>
+    <input type="text" name="studentName" id="StudentName"/>
+    <br>
+    <label for="studentRoll">Roll Number</label>
+    <input type="text" name="studentRoll" id="StudentRoll"/>
+    <br>
+    <label for="studentBranch">Branch</label>
+    <input type="text" name="studentBranch" id="StudentBranch"/>
+    <br>
+    <label for="studentSection">Section</label>
+    <input type="text" name="studentSection" id="StudentSection"/>
+    <br>
+    <hr>
+    <button id="Select">Select</button>
+    <button id="Insert">Insert</button>
+    <button id="Update">Update</button>
+    <button id="Delete">Delete</button>
+    <button id="Clear">Clear</button>  
+    <script type="module">
+        'use-stict'
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js';
+        import{getDatabase,ref,get,set,child,update,remove} from 'https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js';
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyDZjD6zoPZVxJg3BtdHbB1Sxnq4wauX8E0",
+          authDomain: "studentdb-5b0dd.firebaseapp.com",
+          databaseURL: "https://studentdb-5b0dd-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "studentdb-5b0dd",
+          storageBucket: "studentdb-5b0dd.appspot.com",
+          messagingSenderId: "744815483421",
+          appId: "1:744815483421:web:8a837ee2d007b12153c4f4",
+          measurementId: "G-79W0XDF0BW"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        
+        
+        // references
+        
+        var nameBox = document.getElementById("StudentName");
+        var rollBox = document.getElementById("StudentRoll");
+        var branchBox = document.getElementById("StudentBranch");
+        var sectionBox = document.getElementById("StudentSection");
+        
+        var selBtn = document.getElementById("Select");
+        var insBtn = document.getElementById("Insert");
+        var updBtn = document.getElementById("Update");
+        var delBtn = document.getElementById("Delete");
+        var clrBtn = document.getElementById("Clear");
+        
+        function InsertData() {
+           set(ref(db,"StudentDB/"+rollBox.value),{
+               StudentName:nameBox.value,
+               RollNumber:rollBox.value,
+               Branch:branchBox.value,
+               Section:sectionBox.value
+           })
+           .then(()=>{
+               alert("Successful");
+           })
+           .catch((err)=>{
+               alert("Unsuccessful, error :"+err);
+           });
+        }
+        
+        function SelectData() {
+           const dbref=ref(db);
+           get(child(dbref,"StudentDB/"+rollBox.value))
+           .then((snapshot)=>{
+               if(snapshot.exists()){
+                   nameBox.value=snapshot.val().StudentName;
+                   branchBox.value=snapshot.val().Branch;
+                   sectionBox.value=snapshot.val().Section;
+               }
+               else{
+                   alert("Data not found");
+               }
+           })
+           .catch((err)=>{
+               alert("Unsuccessful, error: "+err);
+           });
+        }
+        
+        function UpdateData() {
+           update(ref(db,"StudentDb/"+rollBox.value),{
+               StudentName: nameBox.value,
+               RollNumber: rollBox.value,
+               Branch: branchBox.value,
+               Section: sectionBox.value
+           });
+        }
+        
+        function DeleteData() {
+           remove(ref(db,"StudentDb/"+rollBox.value))
+           .then(()=>{
+               alert("Successful");
+           })
+           .catch((err)=>{
+               alert("Unsuccessful, error: "+err);
+           });
+        }
+        
+        function ClearData() {
+           nameBox.value="";
+           rollBox.value="";
+           branchBox.value="";
+           sectionBox.value="";
+        }
+        
+        //buttons binding
+        
+        insBtn.addEventListener("click",InsertData);
+        selBtn.addEventListener("click",SelectData);
+        updBtn.addEventListener("click",UpdateData);
+        delBtn.addEventListener("click",DeleteData);
+        clrBtn.addEventListener("click",ClearData);
+            </script>
+</body>
+</html>
