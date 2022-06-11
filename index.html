@@ -5,34 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD-firebase</title>
-    <style>
-        body{
-            font-family: sans-serif;
-            text-align: center;
-            background-color: azure;
-        }
-        div{
-            padding: auto;
-            color: black;
-            font-size:200%;
-            padding-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css"></rel>
 </head>
 <body>
     
-    <div id="top">CRUD App</div>
-    <label for="studentName">Name</label>
-    <input type="text" name="studentName" id="StudentName"/>
+    <div id="top"><i>CRUD App</i></div>
+    <table>
+        <tr>
+            <td>
+                <label for="studentName">Name</label>
+            </td>
+            <td>
+                <input type="text" name="studentName" id="StudentName"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="studentRoll">Roll Number</label>
+            </td>
+            <td>
+                <input type="text" name="studentRoll" id="StudentRoll"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="studentBranch">Branch</label>
+            </td>
+            <td>
+                <input type="text" name="studentBranch" id="StudentBranch"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="studentSection">Section</label>
+            </td>
+            <td>
+                <input type="text" name="studentSection" id="StudentSection"/>
+            </td>
+        </tr>
+    </table>
     <br>
-    <label for="studentRoll">Roll Number</label>
-    <input type="text" name="studentRoll" id="StudentRoll"/>
     <br>
-    <label for="studentBranch">Branch</label>
-    <input type="text" name="studentBranch" id="StudentBranch"/>
-    <br>
-    <label for="studentSection">Section</label>
-    <input type="text" name="studentSection" id="StudentSection"/>
     <br>
     <hr>
     <button id="Select">Select</button>
